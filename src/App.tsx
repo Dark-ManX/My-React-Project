@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import Hero from "./pages/Hero";
 
-function App() {
+const AsyncHistory = lazy(() => import("./pages/History"));
+const AsyncGallery = lazy(() => import("./pages/Gallery"));
+
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Main />}>
+        <Route index element={<Hero />} />
+        <Route path="history" element={<AsyncHistory />} />
+        <Route path="gallery" element={<AsyncGallery />} />
+      </Route>
+    </Routes>
   );
-}
+};
 
 export default App;
